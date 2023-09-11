@@ -11,13 +11,13 @@ node('jenkins_agent'){
 
         parallel(
             'Quality Tests': {
-                sh "docker run --rm ${imageName}-test npm run lint"
+                sh "docker run --rm ${imageTest} npm run lint"
             },
             'Integration Tests': {
-                sh "docker run --rm ${imageName}-test npm run test"
+                sh "docker run --rm ${imageTest} npm run test"
             },
             'Coverage Reports': {
-                sh "docker run --rm -v $PWD/coverage:/app/coverage ${imageName}-test npm run coverage-html"
+                sh "docker run --rm -v $PWD/coverage:/app/coverage ${imageTest} npm run coverage-html"
                 publishHTML (target: [
                     allowMissing: false,
                     alwaysLinkToLastBuild: false,
